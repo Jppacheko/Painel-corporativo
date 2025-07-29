@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yuan Soluções - Painel Corporativo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            background-color: #000;
+            position: relative;
+            color: white;
+        }
+        
+        .background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            background: radial-gradient(circle at center, rgba(40, 40, 40, 0.8) 0%, rgba(0, 0, 0, 1) 70%);
+        }
+        
+        .grid {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(255, 204, 0, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 204, 0, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            z-index: 2;
+        }
+        
+        .logo-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 500px;
+            height: 300px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+        }
+        
+        .logo {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            opacity: 0;
+            transition: opacity 1s ease-in-out, transform 1s ease-in-out;
+        }
+        
+        .logo.active {
+            opacity: 1;
+        }
+        
+        .logo-glow {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, rgba(255, 204, 0, 0.2) 0%, rgba(0, 0, 0, 0) 70%);
+            z-index: 9;
+            filter: blur(10px);
+        }
+        
+        .corner-accent {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            z-index: 5;
+        }
+        
+        .corner-accent.top-left {
+            top: 0;
+            left: 0;
+            border-top: 2px solid #ffcc00;
+            border-left: 2px solid #ffcc00;
+        }
+        
+        .corner-accent.top-right {
+            top: 0;
+            right: 0;
+            border-top: 2px solid #ffcc00;
+            border-right: 2px solid #ffcc00;
+        }
+        
+        .corner-accent.bottom-left {
+            bottom: 0;
+            left: 0;
+            border-bottom: 2px solid #ffcc00;
+            border-left: 2px solid #ffcc00;
+        }
+        
+        .corner-accent.bottom-right {
+            bottom: 0;
+            right: 0;
+            border-bottom: 2px solid #ffcc00;
+            border-right: 2px solid #ffcc00;
+        }
+        
+        .content {
+            position: absolute;
+            bottom: 30px;
+            right: 30px;
+            z-index: 6;
+            color: white;
+            text-align: right;
+        }
+        
+        .date-time {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 10px 15px;
+            border-radius: 8px;
+            display: inline-block;
+            border-left: 2px solid #ffcc00;
+        }
+        
+        .tagline {
+            font-size: 1.2rem;
+            font-weight: 300;
+            color: rgba(255, 255, 255, 0.9);
+            margin-top: 10px;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 8px 15px;
+            border-radius: 8px;
+            display: inline-block;
+            border-left: 2px solid #ffcc00;
+        }
+        
+        .slogan {
+            position: absolute;
+            top: 30px;
+            left: 30px;
+            z-index: 6;
+            color: white;
+            font-size: 1.2rem;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 10px 15px;
+            border-radius: 8px;
+            border-left: 2px solid #ffcc00;
+        }
+        
+        .animated-bars {
+            position: absolute;
+            bottom: 30px;
+            left: 30px;
+            display: flex;
+            gap: 5px;
+            z-index: 6;
+        }
+        
+        .bar {
+            width: 3px;
+            height: 20px;
+            background-color: #ffcc00;
+            animation: barAnimation 2s infinite ease-in-out;
+        }
+        
+        .bar:nth-child(2) {
+            animation-delay: 0.4s;
+        }
+        
+        .bar:nth-child(3) {
+            animation-delay: 0.8s;
+        }
+        
+        @keyframes barAnimation {
+            0%, 100% { height: 20px; }
+            50% { height: 40px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="background"></div>
+    <div class="grid"></div>
+    
+    <div class="corner-accent top-left"></div>
+    <div class="corner-accent top-right"></div>
+    <div class="corner-accent bottom-left"></div>
+    <div class="corner-accent bottom-right"></div>
+    
+    <div class="logo-container">
+        <div class="logo-glow"></div>
+        <img src="images/logo1.png" alt="Yuan Soluções Logo 1" class="logo active" id="logo1">
+        <img src="images/logo2.png" alt="Yuan Soluções Logo 2" class="logo" id="logo2">
+        <img src="images/logo3.png" alt="Yuan Soluções Logo 3" class="logo" id="logo3">
+    </div>
+    
+    <div class="slogan">Soluções em recuperação de crédito e automação de processos</div>
+    
+    <div class="animated-bars">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+    </div>
+    
+    <div class="content">
+        <div class="date-time" id="datetime"></div>
+        <div class="tagline">Tecnologia e inovação para o seu negócio</div>
+    </div>
+    
+    <script>
+        // Alternar entre logos com transição simples
+        function rotateLogo() {
+            const logos = document.querySelectorAll('.logo');
+            const activeIndex = Array.from(logos).findIndex(logo => logo.classList.contains('active'));
+            
+            // Remover logo atual
+            logos[activeIndex].classList.remove('active');
+            
+            // Calcular próxima logo
+            const nextIndex = (activeIndex + 1) % logos.length;
+            
+            // Ativar próxima logo
+            logos[nextIndex].classList.add('active');
+        }
+        
+        // Atualizar data e hora
+        function updateDateTime() {
+            const now = new Date();
+            const options = { 
+                weekday: 'long', 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            };
+            document.getElementById('datetime').textContent = now.toLocaleDateString('pt-BR', options);
+        }
+        
+        // Prevenir que a tela entre em modo de descanso
+        function preventSleep() {
+            const event = new MouseEvent('mousemove', {
+                'view': window,
+                'bubbles': true,
+                'cancelable': true,
+                'clientX': Math.floor(Math.random() * window.innerWidth),
+                'clientY': Math.floor(Math.random() * window.innerHeight)
+            });
+            document.dispatchEvent(event);
+        }
+        
+        // Modo de tela cheia ao clicar
+        document.addEventListener('click', () => {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(err => {
+                    console.log(`Erro ao tentar entrar em modo de tela cheia: ${err.message}`);
+                });
+            }
+        });
+        
+        // Inicializar
+        document.addEventListener('DOMContentLoaded', () => {
+            // Alternar logos a cada 8 segundos
+            setInterval(rotateLogo, 8000);
+            
+            // Atualizar data e hora a cada segundo
+            setInterval(updateDateTime, 1000);
+            updateDateTime();
+            
+            // Prevenir que a tela entre em modo de descanso a cada minuto
+            setInterval(preventSleep, 60000);
+        });
+    </script>
+</body>
+</html>
