@@ -132,6 +132,9 @@
             display: inline-block;
             border-left: 2px solid #ffcc00;
         }
+        .date-time::first-letter {
+            text-transform: uppercase;
+        }
         
         .tagline {
             font-size: 1.2rem;
@@ -214,7 +217,6 @@
     
     <div class="content">
         <div class="date-time" id="datetime"></div>
-        <div class="tagline">Tecnologia e inovação para o seu negócio</div>
     </div>
     
     <script>
@@ -245,7 +247,11 @@
                 minute: '2-digit',
                 second: '2-digit'
             };
-            document.getElementById('datetime').textContent = now.toLocaleDateString('pt-BR', options);
+            let text = now.toLocaleDateString('pt-BR', options);
+            if (text && text.length > 0) {
+                text = text.charAt(0).toUpperCase() + text.slice(1);
+            }
+            document.getElementById('datetime').textContent = text;
         }
         
         // Prevenir que a tela entre em modo de descanso
